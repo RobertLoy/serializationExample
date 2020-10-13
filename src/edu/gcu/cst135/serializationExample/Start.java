@@ -1,3 +1,5 @@
+package edu.gcu.cst135.serializationExample;
+
 import java.time.LocalDate;
 
 public class Start {
@@ -6,7 +8,8 @@ public class Start {
 		// TODO Auto-generated method stub
 		// demoSimple();
 		// demoMedium();
-		demoComplex();
+		// demoComplex();
+		demoJson();
 	}
 	
 	private static void demoSimple() {
@@ -47,6 +50,20 @@ public class Start {
 		System.out.println(ex1);
 		ex1 = DataServices.readComplex();
 		System.out.println(ex1);
+	}
+	
+	private static void demoJson() {
+		System.out.println("==================");
+		System.out.println("== COMPLEX DATA ==");
+		System.out.println("==================\n");		
+		ComplexJson ex1 = new ComplexJson("Barbara", 'F',  9114323, true);
+		System.out.println(ex1);
+		DataServices.serializeJson(ex1);
+		ex1 = null;
+		System.out.println(ex1);
+		ex1 = DataServices.readJson();
+		System.out.println(ex1);
+
 	}
 
 }

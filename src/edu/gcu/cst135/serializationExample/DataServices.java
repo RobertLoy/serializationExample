@@ -1,12 +1,16 @@
+package edu.gcu.cst135.serializationExample;
 
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DataServices {
 
@@ -56,7 +60,7 @@ public class DataServices {
 
 		return s;
 	}
-	
+
 	// Used to write our objects to text file
 	public static void serializeMedium(Medium s) {
 		System.out.println("WRITING OUTPUT ... ");
@@ -103,7 +107,7 @@ public class DataServices {
 
 		return s;
 	}
-	
+
 	// Used to write our objects to text file
 	public static void serializeComplex(Complex s) {
 		System.out.println("WRITING COMPLEX OUTPUT ... ");
@@ -149,5 +153,34 @@ public class DataServices {
 		}
 
 		return s;
+	}
+
+	public static void serializeJson(ComplexJson s) {
+		try {
+			ObjectMapper map = new ObjectMapper();
+			map.writeValue(new File("complex.json"),s);
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static ComplexJson readJson() {
+		ObjectMapper mapper = new ObjectMapper();
+		ComplexJson ex1 = null;
+		try {
+			ex1 = mapper.readValue(new File("complex.json"), ComplexJson.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ex1;
 	}
 }
